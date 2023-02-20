@@ -1,7 +1,9 @@
 public class ArvoreBinaria {
 
+//nó raiz
     Node raiz;
 
+//insere nó na arvore
     public void insere(Node n){
         if (raiz == null){
             raiz = n;
@@ -44,6 +46,7 @@ public class ArvoreBinaria {
         }//else
     }//insere
 
+//procura por um nó específico
     public Node search(int buscar){
         Node aux = raiz;
         while(aux!=null){
@@ -58,6 +61,8 @@ public class ArvoreBinaria {
         }
         return null;
     }
+
+//formas de percorrer a árvore
 
     public void preOrdem(Node root){
         if (root!=null){
