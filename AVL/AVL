@@ -4,11 +4,11 @@ public class ArvoreAvl {
 
   protected No raiz;
 
+//inserir nó
 	public void inserir(int k) {
 		No n = new No(k);
 		inserirAVL(this.raiz, n);
 	}
-
 	public void inserirAVL(No aComparar, No aInserir) {
 
 		if (aComparar == null) {
@@ -44,6 +44,7 @@ public class ArvoreAvl {
 		}
 	}
 
+//Checa se o balanceamento está regulado para os padrões AVL
 	public void verificarBalanceamento(No atual) {
 		setBalanceamento(atual);
 		int balanceamento = atual.getBalanceamento();
@@ -74,6 +75,7 @@ public class ArvoreAvl {
 		}
 	}
 
+//remove nó
 	public void remover(int k) {
 		removerAVL(this.raiz, k);
 	}
@@ -136,6 +138,8 @@ public class ArvoreAvl {
 		}
 		r = null;
 	}
+
+//rotações para balancear a árvore
 
 	public No rotacaoEsquerda(No inicial) {
 
@@ -207,6 +211,8 @@ public class ArvoreAvl {
 		return rotacaoEsquerda(inicial);
 	}
 
+//Busca o sucessor para execução das rotações
+
 	public No sucessor(No q) {
 		if (q.getDireita() != null) {
 			No r = q.getDireita();
@@ -224,6 +230,8 @@ public class ArvoreAvl {
 		}
 	}
 
+
+//adquire a altura da árvore
 	private int altura(No atual) {
 		if (atual == null) {
 			return -1;
@@ -247,6 +255,7 @@ public class ArvoreAvl {
 		no.setBalanceamento(altura(no.getDireita()) - altura(no.getEsquerda()));
 	}
 
+//percorre árvore em ordem
 	final protected ArrayList<No> inorder() {
 		ArrayList<No> ret = new ArrayList<No>();
 		inorder(raiz, ret);
