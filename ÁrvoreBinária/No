@@ -20,7 +20,7 @@ public class No {
     }
     public No(){}
 
-//Endereco de memoria do nó
+//"nome" do nó
     public void setObjKey(Object ob, int k){
         this.o = ob;
         this.key = k;
