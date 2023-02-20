@@ -1,18 +1,19 @@
 public class RedBlackTree {
-    /**
-     * Construct the tree.
-     */
+    
+     //Construtor
+     
     public RedBlackTree( ) {
         header      = new RedBlackNode( null );
         header.left = header.right = nullNode;
     }
     
-    /**
-     * Compare item and t.element, using compareTo, with
-     * caveat that if t is header, then item is always larger.
-     * This routine is called if is possible that t is header.
-     * If it is not possible for t to be header, use compareTo directly.
+    /*
+      Compare item e t.element, usando compareTo, com
+      ressalva que, se t for o cabeçalho, o item será sempre maior.
+      Esta rotina é chamada se for possível que t seja cabeçalho.
+      Se não for possível que t seja cabeçalho, use compareTo diretamente.
      */
+     
     private final int compare( Comparable item, RedBlackNode t ) {
         if( t == header )
             return 1;
@@ -20,10 +21,10 @@ public class RedBlackTree {
             return item.compareTo( t.element );
     }
     
-    /**
-     * Insert into the tree.
-     * @param item the item to insert.
-     * @throws DuplicateItemException if item is already present.
+    /*
+      Insira na árvore..
+      @param item o item a ser inserido.
+      @throws DuplicateItemException , uma exceção se o item já estiver presente.
      */
     public void insert( Comparable item ) {
         current = parent = grand = header;
@@ -34,17 +35,17 @@ public class RedBlackTree {
             current = compare( item, current ) < 0 ?
                 current.left : current.right;
             
-            // Check if two red children; fix if so
+            // Verifica se tem 2 filhos vermelhos e conserta caso aja
             if( current.left.color == RED && current.right.color == RED )
                 handleReorient( item );
         }
         
-        // Insertion fails if already present
+        // Inserção não ocorre se nó já estiver presente
         if( current != nullNode )
             throw new DuplicateItemException( item.toString( ) );
         current = new RedBlackNode( item, nullNode, nullNode );
         
-        // Attach to parent
+        // Liga nó ao pai
         if( compare( item, parent ) < 0 )
             parent.left = current;
         else
@@ -52,18 +53,18 @@ public class RedBlackTree {
         handleReorient( item );
     }
     
-    /**
-     * Remove from the tree.
-     * @param x the item to remove.
-     * @throws UnsupportedOperationException if called.
+    /*
+      Remover da árvore
+      @param x o item a ser removido.
+      @throws UnsupportedOperationException se Chamado.
      */
     public void remove( Comparable x ) {
         throw new UnsupportedOperationException( );
     }
     
     /**
-     * Find the smallest item  the tree.
-     * @return the smallest item or null if empty.
+     Encontra o menor elemento da árvore
+      @return , retorna o menor elemento da árvore ou null se estiver vazia
      */
     public Comparable findMin( ) {
         if( isEmpty( ) )
@@ -77,9 +78,9 @@ public class RedBlackTree {
         return itr.element;
     }
     
-    /**
-     * Find the largest item in the tree.
-     * @return the largest item or null if empty.
+    /*
+      Encontra o maior elemento da árvore
+      @return o maior elemento da árvore ou null se vazia.
      */
     public Comparable findMax( ) {
         if( isEmpty( ) )
@@ -93,10 +94,10 @@ public class RedBlackTree {
         return itr.element;
     }
     
-    /**
-     * Find an item in the tree.
-     * @param x the item to search for.
-     * @return the matching item or null if not found.
+    /*
+      Acha um elemento an árvore
+      @param x o elemento ser buscado.
+      @return o item correspondente ou null se não for achado.
      */
     public Comparable find( Comparable x ) {
         nullNode.element = x;
@@ -114,23 +115,23 @@ public class RedBlackTree {
         }
     }
     
-    /**
-     * Make the tree logically empty.
-     */
+    //Fazer a árvore logicamente vazia
+     
+     
     public void makeEmpty( ) {
         header.right = nullNode;
     }
     
-    /**
-     * Print all items.
-     */
+    // Exibe todos os items
+    
+     
     public void printTree( ) {
         printTree( header.right );
     }
     
-    /**
-     * Internal method to print a subtree in sorted order.
-     * @param t the node that roots the tree.
+    /*
+      Imprime subárvore em ordem de classificação
+      @param t é o nó raiz
      */
     private void printTree( RedBlackNode t ) {
         if( t != nullNode ) {
@@ -140,59 +141,58 @@ public class RedBlackTree {
         }
     }
     
-    /**
-     * Test if the tree is logically empty.
-     * @return true if empty, false otherwise.
+    /*
+      Testa sse árvore está logicamente vazia
+      @return true se está vazia, false se não.
      */
     public boolean isEmpty( ) {
         return header.right == nullNode;
     }
     
-    /**
-     * Internal routine that is called during an insertion
-     * if a node has two red children. Performs flip and rotations.
-     * @param item the item being inserted.
+    /*
+     Rotina interna que é chamada durante uma inserção
+     se um nó tiver dois filhos vermelhos. Executa flip e rotações.
+     @param item, o item que está sendo inserido.
      */
     private void handleReorient( Comparable item ) {
-        // Do the color flip
+        // inversão de cores
         current.color = RED;
         current.left.color = BLACK;
         current.right.color = BLACK;
         
-        if( parent.color == RED )   // Have to rotate
+        if( parent.color == RED )   // Precisar rotacionar
         {
             grand.color = RED;
             if( ( compare( item, grand ) < 0 ) !=
                     ( compare( item, parent ) < 0 ) )
-                parent = rotate( item, grand );  // Start dbl rotate
+                parent = rotate( item, grand );  // Inicia rotação
             current = rotate( item, great );
             current.color = BLACK;
         }
-        header.right.color = BLACK; // Make root black
+        header.right.color = BLACK; // Faz raiz Preta
     }
     
-    /**
-     * Internal routine that performs a single or double rotation.
-     * Because the result is attached to the parent, there are four cases.
-     * Called by handleReorient.
-     * @param item the item in handleReorient.
-     * @param parent the parent of the root of the rotated subtree.
-     * @return the root of the rotated subtree.
+    /*
+     Rotina interna que executa uma rotação
+     Como o resultado é anexado ao pai, há quatro casos.
+     Chamado por handleReorient.
+     @param item ,o item em handleReorient.
+     @param parent ,o pai da raiz da subárvore rotacionada.
+     @return a raiz da subárvore rotacionada.
      */
     private RedBlackNode rotate( Comparable item, RedBlackNode parent ) {
         if( compare( item, parent ) < 0 )
             return parent.left = compare( item, parent.left ) < 0 ?
-                rotateWithLeftChild( parent.left )  :  // LL
-                rotateWithRightChild( parent.left ) ;  // LR
+                rotateWithLeftChild( parent.left )  :  // EE
+                rotateWithRightChild( parent.left ) ;  // ED
         else
             return parent.right = compare( item, parent.right ) < 0 ?
-                rotateWithLeftChild( parent.right ) :  // RL
-                rotateWithRightChild( parent.right );  // RR
+                rotateWithLeftChild( parent.right ) :  // DE
+                rotateWithRightChild( parent.right );  // DD
     }
     
-    /**
-     * Rotate binary tree node with left child.
-     */
+    //Gira o nó da árvore binária com o filho esquerdo.
+     
     private static RedBlackNode rotateWithLeftChild( RedBlackNode k2 ) {
         RedBlackNode k1 = k2.left;
         k2.left = k1.right;
@@ -200,9 +200,8 @@ public class RedBlackTree {
         return k1;
     }
     
-    /**
-     * Rotate binary tree node with right child.
-     */
+    //Gira o nó da árvore binária com o filho direito
+     
     private static RedBlackNode rotateWithRightChild( RedBlackNode k1 ) {
         RedBlackNode k2 = k1.right;
         k1.right = k2.left;
@@ -211,7 +210,7 @@ public class RedBlackTree {
     }
     
     private static class RedBlackNode {
-        // Constructors
+        // Construtores
         RedBlackNode( Comparable theElement ) {
             this( theElement, null, null );
         }
@@ -223,69 +222,66 @@ public class RedBlackTree {
             color    = RedBlackTree.BLACK;
         }
         
-        Comparable   element;    // The data in the node
-        RedBlackNode left;       // Left child
-        RedBlackNode right;      // Right child
-        int          color;      // Color
+        Comparable   element;    // Info no nó
+        RedBlackNode left;       // Filho esquerdo
+        RedBlackNode right;      // Filho Direito
+        int          color;      // COr
     }
     
     private RedBlackNode header;
     private static RedBlackNode nullNode;
-    static         // Static initializer for nullNode
+    static         // Static inicializador por nó nulo
     {
         nullNode = new RedBlackNode( null );
         nullNode.left = nullNode.right = nullNode;
     }
     
-    private static final int BLACK = 1;    // Black must be 1
+    private static final int BLACK = 1;    // Preto é 1
     private static final int RED   = 0;
     
-    // Used in insert routine and its helpers
+    // Usado na rotina de inserção e seus auxiliares
     private static RedBlackNode current;
     private static RedBlackNode parent;
     private static RedBlackNode grand;
     private static RedBlackNode great;
     
     
-    // Test program
+    // Programa teste
     public static void main( String [ ] args ) {
         RedBlackTree t = new RedBlackTree( );
         final int NUMS = 400000;
         final int GAP  =  35461;
         
-        System.out.println( "Checking... (no more output means success)" );
+        System.out.println( "Checking... (não mais saídas significa sucesso)" );
         
         for( int i = GAP; i != 0; i = ( i + GAP ) % NUMS )
             t.insert( new Integer( i ) );
         
         if( ((Integer)(t.findMin( ))).intValue( ) != 1 ||
                 ((Integer)(t.findMax( ))).intValue( ) != NUMS - 1 )
-            System.out.println( "FindMin or FindMax error!" );
+            System.out.println( "Erro FindMin ou FindMax!" );
         
         for( int i = 1; i < NUMS; i++ )
             if( ((Integer)(t.find( new Integer( i ) ))).intValue( ) != i )
-                System.out.println( "Find error1!" );
+                System.out.println( "Encontrado erro1!" );
     }
 }
 
 
-/**
- * Exception class for duplicate item errors
- * in search tree insertions.
- * @author Mark Allen Weiss
- */
+
+  //Classe de exceção para erros de itens duplicados nas inserções da árvore de pesquisa.
+ 
 public class DuplicateItemException extends RuntimeException
 {
-    /**
-     * Construct this exception object.
-     */
+    //Construa este objeto de exceção.
+    
     public DuplicateItemException( )
     {
         super( );
     }
-    /**
-     * Construct this exception object.
-     * @param message the error message.
+    /*
+      Construa este objeto de exceção.
+      @param message, a mensagem de erro
      */
     public DuplicateItemException( String message )
     {
