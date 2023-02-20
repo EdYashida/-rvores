@@ -1,6 +1,8 @@
 public class No {
 
     //arvore Binaria
+    
+    //atributos do nó
     int key;
     Object o;
 
@@ -11,12 +13,14 @@ public class No {
     //opcional
     No pai;
 
+//Construtor
     public No(Object ob, int k){
         this.o = ob;
         this.key = k;
     }
     public No(){}
 
+//Endereco de memoria do nó
     public void setObjKey(Object ob, int k){
         this.o = ob;
         this.key = k;
@@ -26,6 +30,7 @@ public class No {
         return this.key;
     }
 
+//Manipula o nó filhoE
     public No getFilhoEsquerda() {
         return filhoEsquerda;
     }
@@ -38,6 +43,7 @@ public class No {
         this.key = k;
     }
 
+//Manipula o nó filhoD
     public No getFilhoDireita() {
         return filhoDireita;
     }
@@ -46,6 +52,7 @@ public class No {
         this.filhoDireita = filhoDireita;
     }
 
+//Manipula o nó pai
     public No getPai() {
         return pai;
     }
@@ -54,6 +61,7 @@ public class No {
         this.pai = pai;
     }
 
+//Info guardada no Nó
     public String toString(){
         return key+ " - "+o.toString();
     }
