@@ -1,21 +1,21 @@
 public class No {
   
+  //atributos do Nó
 	private No esquerda;
 	private No direita;
 	private No pai;
 	private int chave;
 	private int balanceamento;
 
+//Construtor do nó
 	public No(int k) {
 		setEsquerda(setDireita(setPai(null)));
 		setBalanceamento(0);
 		setChave(k);
 	}
 
-	public String toString() {
-		return Integer.toString(getChave());
-	}
 
+       //"Nome" do Nó
 	public int getChave() {
 		return chave;
 	}
@@ -32,6 +32,7 @@ public class No {
 		this.balanceamento = balanceamento;
 	}
 
+       //Nó Pai
 	public No getPai() {
 		return pai;
 	}
@@ -40,7 +41,8 @@ public class No {
 		this.pai = pai;
 		return pai;
 	}
-
+       
+        //FilhoD
 	public No getDireita() {
 		return direita;
 	}
@@ -50,6 +52,7 @@ public class No {
 		return direita;
 	}
 
+       //FilhoE
 	public No getEsquerda() {
 		return esquerda;
 	}
@@ -57,4 +60,10 @@ public class No {
 	public void setEsquerda(No esquerda) {
 		this.esquerda = esquerda;
 	}
+	
+	//Conteúdo do nó
+	public String toString() {
+		return Integer.toString(getChave());
+	}
+
 }
